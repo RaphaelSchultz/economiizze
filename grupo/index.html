@@ -264,6 +264,26 @@
     .hero {
       overflow-x: hidden;
     }
+
+    /* Camada de fundo fixa cobrindo toda a viewport durante o scroll */
+.bg{
+  position: fixed;
+  inset: 0;           /* top/right/bottom/left: 0 */
+  z-index: -2;        /* fica atrás do conteúdo */
+  pointer-events: none;
+
+  /* seu gradiente colorido */
+  background:
+    radial-gradient(1200px 600px at 50% -180px, rgba(41,214,127,.22), transparent 60%),
+    radial-gradient(900px 600px at 100% 10%, rgba(255,122,46,.15), transparent 60%),
+    radial-gradient(900px 600px at 0% 90%, rgba(124,187,255,.18), transparent 58%),
+    linear-gradient(180deg, #0e1528 0%, #0b1220 30%, #0a1224 100%);
+}
+
+/* Garanta altura mínima correta em devices com barra dinâmica */
+html{height:auto; min-height:100%}
+body{background: transparent; min-height: 100dvh; overflow-x:hidden}
+
   </style>
 </head>
 
@@ -302,14 +322,14 @@
     </section>
   </main>
 
-  <!-- Sticky CTA (mobile) -->
+  <!-- Sticky CTA (mobile)
   <div class="sticky-cta">
     <a id="btn-sticky" class="btn btn-primary"
       href="https://whats.ly/grupoeconomiizze?utm_source=lp&utm_medium=sticky_cta&utm_campaign=convite">
       Entrar no grupo no WhatsApp
     </a>
   </div>
-
+ -->
   <script>
     // Dispara evento Lead no clique de ambos botões
     document.addEventListener('DOMContentLoaded', function () {
@@ -324,5 +344,9 @@
     });
   </script>
 </body>
+<body>
+  <div class="bg"></div>
+  <!-- resto da página -->
+
 
 </html>
