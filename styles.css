@@ -50,7 +50,9 @@ img{display:block; max-width:100%}
 .icon-check{color:var(--green)}
 .dot{width:12px; height:12px; border-radius:999px; display:inline-block}
 .dot-shopee{background:#ff5f00}
-.dot-magalu{background:#2d9cdb}
+.dot-mercadoLivre{background:#FFE600}
+.dot-amazom{background:#FFFFFF}
+.dot-mais{background:#39e405}
 
 /* hero card */
 .hero-card-wrap{position:relative}
@@ -104,8 +106,8 @@ img{display:block; max-width:100%}
 
 /* --- Mobile responsiveness adjustments --- */
 @media (max-width: 599px){
-  .container{padding:0 16px}
-  .hero{gap:28px; padding:40px 0}
+  .container{padding:20px}
+  .hero{gap:28px; padding:40px }
   .hero-title{font-size:34px}
   .hero-desc{font-size:16px}
   .stats{grid-template-columns:1fr;}
