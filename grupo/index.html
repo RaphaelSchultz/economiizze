@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CLT Promos | Ofertas e Cupons</title>
+<meta name="robots" content="all" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon-logo.png" type="image/png" />
+
+
+<style>
+  :root{
+    --bg:#f6f6f6;
+    --text:#222224;
+    --card:#ffffff;
+    --line:#e5e7eb;
+    --shadow:0 10px 25px rgba(0,0,0,.06);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+ body{
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Open Sans", sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+
+  .wrap{
+    min-height:100dvh;
+    display:grid;
+    place-items:center;
+    padding:28px 16px 64px;
+  }
+
+  .stack{
+    width:100%;
+    max-width:400px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+
+
+.logo{
+    width:120px; height:120px; border-radius:999px;
+    display:grid; place-items:center;
+    background:#fff; border:2px solid #e5e7eb; box-shadow:var(--shadow);
+    overflow:hidden; /* garante recorte circular */
+  }
+    .logo img{
+    width:100%; height:100%;
+    object-fit:contain;   /* não distorce/corta a logo */
+    border-radius:999px;  /* mantém cantos arredondados */
+    display:block;
+  }
+
+  h1{
+    margin:0;
+    font-weight:700;
+    font-size:clamp(20px,2.6vw,26px);
+    text-align:center;
+  }
+  .subtitle{
+    margin-top:0px;
+    font-size:clamp(13px,2vw,15px);
+    color:#4b5563;
+    text-align:center;
+  }
+
+  /* Cartões/CTAs */
+  .cta{
+    width:100%;
+    max-width:560px;
+    margin-top: 10px;
+    background:var(--card);
+    border:2px solid #212121;          /* borda solicitada */
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    display:flex; align-items:center; gap:14px;
+    padding:14px 16px;
+  }
+  .cta + .cta{ margin-top:10px; }
+  .cta a{ color:inherit; text-decoration:none; display:contents; }
+
+  .cta .left{
+    width:44px; height:44px; border-radius:10px;
+    display:grid; place-items:center; flex:0 0 44px;
+    background:#fff;
+  }
+  /* .cta.whatsapp .left{ background:#eafbf1; }    leve cor de fundo, como no print */
+  /* .cta.telegram .left{ background:#e9f6fd; }
+
+  /* Ícone via imagem */
+  .cta .left img{
+    width:36px; height:36px; display:block; object-fit:contain;
+  }
+
+  .cta .body{ display:flex; flex-direction:column; line-height:1.15; flex:1; min-width:0; }
+  .cta .title{ font-weight:600; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cta .meta{ color:#111827; font-size:14px; margin-top: 6px;}
+
+  .cta .ext{ width:22px; height:60px; flex:0 0 22px; opacity:.9; }
+
+  /* Marcas */
+  .brands-wrap{ margin-top:36px; text-align:center; }
+  .brands-title{ font-weight:600; margin-bottom:10px; }
+  .brands{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .brand{
+    width:38px; height:38px; border-radius:999px; background:#fff; border:1px solid var(--line);
+    display:grid; place-items:center; box-shadow:var(--shadow);
+  }
+  /* Mantém o badge redondo branco */
+.brand{
+  width:38px; height:38px; border-radius:999px;
+  background:#fff; border:1px solid #e5e7eb;
+  display:grid; place-items:center; box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+/* A imagem dentro do badge */
+.brand img{
+  width:100%; height:100%;
+  border-radius:999px;   /* arredonda a própria imagem */
+  object-fit:cover;      /* corta para preencher */
+  padding:0;             /* sem folga */
+}
+
+
+/* OPCIONAL: se tiver logos muito claros, use um tema escuro no badge */
+.brand.dark{ background:#111; border-color:#111; }
+.brand.dark img{ filter:invert(1); } /* só se fizer sentido para o logo */
+
+
+  @media (max-width:560px){
+    .cta{ padding:12px 14px; }
+    .cta .left{ width:40px; height:40px; }
+    .cta .title{ font-size:14px; }
+    .cta .meta{ font-size:13px; }
+  }
+</style>
+
+<!-- Meta Pixel (ID 830800353236359) -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '830800353236359');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=830800353236359&ev=PageView&noscript=1"/>
+</noscript>
+</head>
+<body>
+  <div class="wrap">
+    <div class="stack">
+
+      <!-- Logo -->
+      <div class="logo" aria-hidden="true">
+        <img src="assets/logo.png" alt="CLT Promos Logo" loading="eager" decoding="async">
+      </div>
+
+      <h1>Entre no grupo VIP e receba ofertas de até 70% OFF</h1>
+      <div class="subtitle"><b>A Balck Friday está chegando!</b> <br> Receba as melhores promoções do maior evento
+de ofertas do ano. Clique para se tornar membro.</div>
+
+      <!-- CTA WhatsApp -->
+      <div class="cta whatsapp">
+        <a href="https://whats.ly/grupoeconomiizze" target="_blank" rel="noopener">
+          <div class="left" aria-hidden="true">
+            <img src="assets/wpp-logo.png" alt="WhatsApp" loading="lazy" decoding="async">
+          </div>
+          <div class="body">
+            <div class="title">Entre no grupo de WhatsApp</div>
+            <div class="meta"><strong>32.000</strong> membros</div>
+          </div>
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3h7v7h-2V6.4l-9.3 9.3-1.4-1.4L17.6 5H14V3zM19 19H5V5h6V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-6h-2v6z" fill="#111827"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- CTA Telegram
+      <div class="cta telegram">
+        <a href="https://t.me/cltpromo" target="_blank" rel="noopener">
+          <div class="left" aria-hidden="true">
+            <img src="assets/telegram-logo.png" alt="Telegram" loading="lazy" decoding="async">
+          </div>
+          <div class="body">
+            <div class="title">Entre no grupo de Telegram</div>
+            <div class="meta"><strong>Novo</strong> | <strong>300</strong> membros</div>
+          </div>
+          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3h7v7h-2V6.4l-9.3 9.3-1.4-1.4L17.6 5H14V3zM19 19H5V5h6V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-6h-2v6z" fill="#111827"/>
+          </svg>
+        </a>
+      </div>
+      -->
+
+      <!-- Marcas -->
+      <div class="brands-wrap">
+        <div class="brands-title">Conexões diretas com:</div>
+        <div class="brands">
+          <div class="brand" title="Shopee">
+            <img src="assets/shopee-logo.png" alt="icon-lojas" loading="lazy" decoding="async">
+          </div>
+          <div class="brand" title="Mercado Livre">
+            <img src="assets/mercado-livre-logo.png" alt="icon-lojas" loading="lazy" decoding="async">
+          </div>
+          <div class="brand" title="Amazom">
+            <img src="assets/amazom-logo.png" alt="icon-lojas" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pixel: eventos de clique -->
+  <script>
+    const wa = document.querySelector('.cta.whatsapp a');
+    const tg = document.querySelector('.cta.telegram a');
+    wa.addEventListener('click', ()=>{ try{ fbq('track','Lead',{channel:'WhatsApp'}); fbq('trackCustom','JoinWhatsApp'); }catch(e){} });
+    tg.addEventListener('click', ()=>{ try{ fbq('trackCustom','JoinTelegram'); }catch(e){} });
+  </script>
+</body>
+</html>
