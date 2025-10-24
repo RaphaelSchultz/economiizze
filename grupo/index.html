@@ -337,7 +337,7 @@ body{background: transparent; min-height: 100dvh; overflow-x:hidden}
         var el = document.getElementById(id);
         if (el) {
           el.addEventListener('click', function () {
-            try { fbq('track', 'Leads'); } catch (e) { }
+            try { fbq('track', 'Lead'); } catch (e) { }
           });
         }
       });
