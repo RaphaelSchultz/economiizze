@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Abrindo WhatsApp…</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body{margin:0;font-family:Inter,system-ui,sans-serif;background:#0b1220;color:#fff;
+       display:flex;min-height:100svh;align-items:center;justify-content:center;padding:24px;text-align:center}
+  .card{max-width:520px;background:#0a0f1a;border:1px solid #27272a;border-radius:16px;padding:20px}
+  .btn{display:inline-block;margin-top:12px;padding:12px 16px;border-radius:10px;border:1px solid #212121;
+       text-decoration:none;color:#fff}
+</style>
+
+<div class="card">
+  <h1>Quase lá…</h1>
+  <p>Se o WhatsApp não abrir automaticamente, toque no botão abaixo.</p>
+  <a id="btnOpen" class="btn" href="#">Abrir no WhatsApp</a>
+  <div id="tips" style="opacity:.85;font-size:.95rem;margin-top:10px"></div>
+</div>
+
+<script>
+  // ===== CONFIGURE AQUI =====
+  const INVITE_CODE = "GgJpBI4kic3DRdn56LZ9fD"; // troque pelo seu código real
+  // ==========================
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isIG      = /Instagram/i.test(navigator.userAgent);
+  const deepLink  = `whatsapp://chat?code=${INVITE_CODE}`;
+  const webLink   = `https://chat.whatsapp.com/${INVITE_CODE}`;
+  const androidIntent = `intent://chat?code=${INVITE_CODE}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+
+  function tryOpen() {
+    let bounced = false;
+    const t = Date.now();
+    // 1) tenta abrir direto o app
+    window.location.href = deepLink;
+
+    // 2) se não mudou de app em ~900ms, tenta intent no Android
+    setTimeout(() => {
+      if (Date.now() - t < 1500) {
+        if (isAndroid) {
+          window.location.href = androidIntent;
+        } else {
+          // 3) fallback final: link web (mostra "Entrar na conversa")
+          window.location.href = webLink;
+        }
+      }
+    }, 900);
+  }
+
+  // Aciona automaticamente ao carregar (melhor UX); mantém botão como plano B
+  window.addEventListener('load', tryOpen);
+  document.getElementById('btnOpen').addEventListener('click', (e) => { e.preventDefault(); tryOpen(); });
+
+  // Dica específica para quem está no navegador do Instagram
+  if (isIG) {
+    document.getElementById('tips').innerHTML =
+      'Você está no navegador do Instagram. Se nada acontecer, toque nos três pontinhos (⋯) e escolha <b>Abrir no navegador</b>, depois tente novamente.';
+  }
+</script>
