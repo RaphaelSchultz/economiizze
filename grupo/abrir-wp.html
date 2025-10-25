@@ -8,52 +8,138 @@
   .card{max-width:520px;background:#0a0f1a;border:1px solid #27272a;border-radius:16px;padding:20px}
   .btn{display:inline-block;margin-top:12px;padding:12px 16px;border-radius:10px;border:1px solid #212121;
        text-decoration:none;color:#fff}
+  .muted{opacity:.85;font-size:.95rem;margin-top:10px}
 </style>
 
 <div class="card">
   <h1>Quase lá…</h1>
   <p>Se o WhatsApp não abrir automaticamente, toque no botão abaixo.</p>
-  <a id="btnOpen" class="btn" href="#">Abrir no WhatsApp</a>
-  <div id="tips" style="opacity:.85;font-size:.95rem;margin-top:10px"></div>
+
+  <!-- ATENÇÃO: você SÓ altera este HREF quando trocar o grupo -->
+  <!-- Exemplo: https://chat.whatsapp.com/AbCdEfGhIjKLMnoPqr -->
+  <a id="groupLink" class="btn" href="https://chat.whatsapp.com/SEU_CONVITE_AQUI"
+     data-invite="">Abrir no WhatsApp</a>
+
+  <div id="tips" class="muted"></div>
 </div>
 
 <script>
-  // ===== CONFIGURE AQUI =====
-  const INVITE_CODE = "GgJpBI4kic3DRdn56LZ9fD"; // troque pelo seu código real
-  // ==========================
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isIG      = /Instagram/i.test(navigator.userAgent);
-  const deepLink  = `whatsapp://chat?code=${INVITE_CODE}`;
-  const webLink   = `https://chat.whatsapp.com/${INVITE_CODE}`;
-  const androidIntent = `intent://chat?code=${INVITE_CODE}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+  // ————— Utilitários —————
+  const ua = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(ua);
+  const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+  const isIG      = /Instagram/i.test(ua);
 
-  function tryOpen() {
-    let bounced = false;
-    const t = Date.now();
-    // 1) tenta abrir direto o app
-    window.location.href = deepLink;
+  // Extrai código de convite de vários formatos possíveis:
+  // - https://chat.whatsapp.com/<CODE>
+  // - whatsapp://chat?code=<CODE>
+  // - intent://chat?code=<CODE>#Intent;scheme=whatsapp;...
+  // - ?invite=<CODE> (na URL da página)
+  function extractInviteCode({ href, pageUrl, dataInvite }) {
+    // 1) Tenta pelo HREF do botão
+    try {
+      if (href) {
+        // normaliza
+        const u = new URL(href, location.href);
 
-    // 2) se não mudou de app em ~900ms, tenta intent no Android
-    setTimeout(() => {
-      if (Date.now() - t < 1500) {
-        if (isAndroid) {
-          window.location.href = androidIntent;
-        } else {
-          // 3) fallback final: link web (mostra "Entrar na conversa")
-          window.location.href = webLink;
+        // a) chat.whatsapp.com/<CODE>
+        if (/chat\.whatsapp\.com$/i.test(u.hostname)) {
+          const maybe = (u.pathname || "").replace(/^\/+/, "");
+          if (maybe) return maybe;
+        }
+
+        // b) whatsapp://chat?code=<CODE>
+        if (u.protocol === "whatsapp:") {
+          const code = u.searchParams.get("code");
+          if (code) return code;
+        }
+
+        // c) intent://chat?code=<CODE>#...
+        //    não dá pra usar URL() em intent://, então cai no regex:
+        if (/^intent:\/\//i.test(href)) {
+          const m = href.match(/[?&#]code=([A-Za-z0-9_-]+)/);
+          if (m && m[1]) return m[1];
         }
       }
-    }, 900);
+    } catch(e){/* ignora */}
+
+    // 2) Tenta querystring da PÁGINA (?invite=CODE)
+    try {
+      const up = new URL(pageUrl || location.href);
+      const q  = up.searchParams.get("invite");
+      if (q) return q;
+    } catch(e){/* ignora */}
+
+    // 3) Tenta data-invite do botão
+    if (dataInvite && dataInvite.trim()) return dataInvite.trim();
+
+    return ""; // não achou
   }
 
-  // Aciona automaticamente ao carregar (melhor UX); mantém botão como plano B
-  window.addEventListener('load', tryOpen);
-  document.getElementById('btnOpen').addEventListener('click', (e) => { e.preventDefault(); tryOpen(); });
+  function buildTargets(invite) {
+    const deep  = `whatsapp://chat?code=${invite}`;
+    const web   = `https://chat.whatsapp.com/${invite}`;
+    const intent= `intent://chat?code=${invite}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+    return { deep, web, intent };
+  }
 
-  // Dica específica para quem está no navegador do Instagram
+  function openWhatsApp(invite) {
+    if (!invite) return;
+
+    const { deep, web, intent } = buildTargets(invite);
+    // Estratégia: Android no Instagram => intent; senão => deep
+    const primary = (isAndroid && isIG) ? intent : deep;
+
+    // Dispara a primária (gera 1 prompt)
+    window.location.href = primary;
+
+    // Fallback somente se a página continuar visível (app não abriu)
+    const fallbackTimer = setTimeout(() => {
+      if (document.visibilityState === 'visible') {
+        window.location.href = web;
+      }
+    }, 1500);
+
+    const cancel = () => { clearTimeout(fallbackTimer); cleanup(); };
+    const onVis  = () => { if (document.visibilityState === 'hidden') cancel(); };
+    const cleanup= () => {
+      document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('pagehide', cancel);
+    };
+
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('pagehide', cancel);
+  }
+
+  // ————— Inicialização —————
+  const btn = document.getElementById('groupLink');
+  const invite = extractInviteCode({
+    href: btn?.getAttribute('href') || "",
+    pageUrl: location.href,
+    dataInvite: btn?.dataset?.invite || ""
+  });
+
+  // Atualiza o botão para o link WEB (funciona no fallback/desktop)
+  if (invite) {
+    btn.setAttribute('href', `https://chat.whatsapp.com/${invite}`);
+  }
+
+  // Android pode autoexecutar; iOS prefira gesto do usuário
+  if (invite && isAndroid) {
+    window.addEventListener('load', () => openWhatsApp(invite));
+  }
+
+  btn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!invite) {
+      alert('Link do grupo está inválido. Verifique o HREF do botão ou use ?invite=CODE.');
+      return;
+    }
+    openWhatsApp(invite);
+  });
+
   if (isIG) {
     document.getElementById('tips').innerHTML =
-      'Você está no navegador do Instagram. Se nada acontecer, toque nos três pontinhos (⋯) e escolha <b>Abrir no navegador</b>, depois tente novamente.';
+      'Você está no navegador do Instagram. Se nada acontecer, toque em <b>⋯</b> → <b>Abrir no navegador</b> e tente novamente.';
   }
 </script>
