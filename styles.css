@@ -57,7 +57,7 @@ img{display:block; max-width:100%}
 /* hero card */
 .hero-card-wrap{position:relative}
 .hero-card{
-  border-radius:24px; padding:24px; color:#000; box-shadow:0 30px 80px rgba(0,0,0,.45);
+  border-radius:10px; padding:24px; color:#000; box-shadow:0 30px 80px rgba(0,0,0,.45);
   background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 50%, var(--green) 100%);
 }
 .hero-card-head{display:flex; gap:16px; align-items:flex-start}
@@ -67,7 +67,7 @@ img{display:block; max-width:100%}
 
 /* stats */
 .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px}
-.stat{background:rgba(255,255,255,.75); border-radius:16px; padding:12px}
+.stat{background:rgba(255,255,255,.75); border-radius:8px; padding:12px}
 .stat-top{display:flex; align-items:center; gap:8px; font-weight:600}
 .stat-value{margin-top:4px; font-size:18px; font-weight:900}
 
@@ -83,11 +83,11 @@ img{display:block; max-width:100%}
 
 /* sections */
 .section{padding-bottom:48px}
-.surface{background:#0b0f19; border:1px solid #27272a; border-radius:24px; padding:24px}
+.surface{background:#0b0f19; border:1px solid #27272a; border-radius:10px; padding:24px}
 .section-title{margin:0; font-size:24px; font-weight:800}
 .steps{display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px}
 @media (min-width: 880px){ .steps{grid-template-columns:repeat(3,1fr)} }
-.step{border:1px solid #27272a; border-radius:20px; padding:20px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0))}
+.step{border:1px solid #27272a; border-radius:8px; padding:20px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0))}
 .step-number{width:32px; height:32px; border-radius:999px; background:var(--blue); color:#000; font-weight:900; display:flex; align-items:center; justify-content:center}
 .step-title{margin:12px 0 0; font-weight:700}
 .step-desc{margin:6px 0 0; color:#a1a1aa; font-size:14px}
@@ -95,7 +95,7 @@ img{display:block; max-width:100%}
 /* faq */
 .faq{display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px}
 @media (min-width: 880px){ .faq{grid-template-columns:repeat(3,1fr)} }
-.faq-item{border:1px solid #27272a; border-radius:20px; padding:20px}
+.faq-item{border:1px solid #27272a; border-radius:8px; padding:20px}
 .faq-q{margin:0; font-weight:700}
 .faq-a{margin:8px 0 0; color:#a1a1aa; font-size:14px}
 
